@@ -33,17 +33,22 @@ const api = {
       // Guardamos los datos
       writeFileSync("db/message.db", JSON.stringify(draft, null, 2));
     },
-    async submit(text: Message["text"]) {
+    async submit(text: Message["text"], id: string, unit_price: number, quantity: number, title: string, currency_id: string) {
       // Creamos la preferencia incluyendo el precio, titulo y metadata. La información de `items` es standard de Mercado Pago. La información que nosotros necesitamos para nuestra DB debería vivir en `metadata`.
       const preference = await new Preference(mercadopago).create({
         body: {
           items: [
             {
-              id: "message",
-              unit_price: 20000,
-              quantity: 1,
-              title: "Mensaje de muro",
-              currency_id: "COP",
+              // id: "message",
+              // unit_price: 2000,
+              // quantity: 1,
+              // title: "T-shirt de Scouts",
+              // currency_id: "COP",
+              id: id,
+              unit_price: unit_price,
+              quantity: quantity,
+              title: title,
+              currency_id: currency_id
             },
           ],
           metadata: {
